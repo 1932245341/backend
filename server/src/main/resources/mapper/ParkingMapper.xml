@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.ParkingMapper">
+
+    <!-- 查询所有停车场信息 -->
+    <select id="queryAll" resultType="org.example.pojo.entity.Parking">
+        SELECT id, name, location, image, latitude, longitude,status
+        FROM parking
+    </select>
+
+    <!-- 新增停车场（自动回填自增ID） -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO parking (name, location, image, latitude, longitude)
+        VALUES (#{name}, #{location}, #{image}, #{latitude}, #{longitude})
+    </insert>
+
+    <!-- 根据ID删除停车场 -->
+    <delete id="deleteById">
+        DELETE FROM parking
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 更新停车场信息 -->
+    <update id="update">
+        UPDATE parking
+        SET name = #{name},
+            location = #{location},
+            image = #{image},
+            latitude = #{latitude},
+            longitude = #{longitude}
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Parking">
+        select * from parking
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

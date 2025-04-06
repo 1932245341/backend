@@ -1,0 +1,85 @@
+server:
+  port: 8080
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root   #你本地的数据库用户名
+    password: 1932245341 #你本地的数据库密码
+    url: jdbc:mysql://localhost:3306/iyouyangshuo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 1932245341
+      database: 11
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.example.pojo.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+iyouyangshuo:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: csg
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+    user-secret-key: 4vEPzY5X4b8e3wKZqsdfgdfafsdasdasafsd
+    user-ttl: 7200000
+    user-token-name: authorization
+
+  alioss:
+    endpoint: oss-cn-guangzhou.aliyuncs.com
+    access-key-id: LTAI5tHmMEhovCWpMmNkZKmY
+    access-key-secret: 78xgZfX80zH7khGiOJo4jYvUX1luww
+    bucket-name: iyouyangshuo
+
+  wechat:
+    appid: wx84dc7360e14c600d
+    secret: 3d8de18f0ff56d7e9080b15bb766fadf
+    mchid:  # 微信支付商户号
+    mchSerialNo:  # 微信支付商户证书序列号
+    privateKeyFilePath:  # 微信支付商户私钥文件路径
+    apiV3Key:  # 微信支付API v3密钥
+    weChatPayCertFilePath:  # 微信支付证书文件路径
+    notifyUrl:  # 微信支付通知URL
+    refundNotifyUrl:  # 微信支付退款通知URL
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: org.example.server
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  pageSizeZero: true
+
+
+
+
+
