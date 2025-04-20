@@ -23,4 +23,11 @@ public class JwtProperties {
     private long userTtl;
     private String userTokenName;
 
+    /**
+     * 商家生成jwt令牌相关配置
+     */
+    private String marketerSecretKey;
+    private long marketerTtl;
+    private String marketerTokenName;
+
 }

@@ -2,7 +2,7 @@ package org.example.server.mapper;
 
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.pojo.dto.ParkingPageQueryDTO;
+import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Parking;
 import com.github.pagehelper.Page;
 
@@ -17,10 +17,10 @@ public interface ParkingMapper {
     /**
      * 分页查询停车场
      *
-     * @param parkingPageQueryDTO
+     * @param pageQueryDTO
      * @return
      */
-    Page<Parking> pageQuery(ParkingPageQueryDTO parkingPageQueryDTO);
+    Page<Parking> pageQuery(PageQueryDTO pageQueryDTO);
 
 
     void insert(Parking parking);

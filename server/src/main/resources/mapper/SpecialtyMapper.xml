@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.SpecialtyMapper">
+
+    <!-- 查询所有特产信息 -->
+    <select id="list" resultType="org.example.pojo.entity.Specialty">
+        SELECT *
+        FROM specialty
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增特产（自动回填自增ID） -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO specialty (name, price, type, description, image)
+        VALUES (#{name}, #{price}, #{type}, #{description}, #{image})
+    </insert>
+
+    <!-- 根据ID删除特产 -->
+    <delete id="deleteById">
+        DELETE FROM specialty
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 更新特产信息（动态SQL） -->
+    <update id="update">
+        UPDATE specialty
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Specialty">
+        select * from specialty
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

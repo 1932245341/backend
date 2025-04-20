@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.RestaurantMapper">
+
+
+    <!-- 查询本商家的所有餐馆 -->
+    <select id="queryAllRestaurant" resultType="org.example.pojo.entity.Restaurant">
+        SELECT name, location, latitude, longitude, contact, image, score,minprice
+        FROM restaurant
+    </select>
+
+    <!-- 查询本商家的所有餐馆 -->
+    <select id="queryByMarkerId" resultType="org.example.pojo.entity.Restaurant">
+        SELECT *
+        FROM restaurant
+        WHERE marketer_id = #{markerId}
+    </select>
+
+    <!-- 新增餐馆（自动回填自增ID） -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO restaurant (marketer_id,name, location, latitude, longitude,contact,license,image)
+        VALUES (#{marketerId},#{name}, #{location}, #{latitude}, #{longitude},#{contact},#{license},#{image})
+    </insert>
+
+    <!-- 根据ID删除 -->
+    <delete id="deleteById">
+        DELETE FROM restaurant
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 更新餐馆信息（动态SQL） -->
+    <update id="update">
+        UPDATE restaurant
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+           <if test="contact != null">
+                contact = #{contact},
+            </if>
+            <if test="license != null">
+                license = #{license},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Restaurant">
+        select * from restaurant
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

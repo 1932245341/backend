@@ -20,15 +20,29 @@
         WHERE id = #{id}
     </delete>
 
-    <!-- 更新停车场信息 -->
+    <!-- 更新停车场信息（动态SQL） -->
     <update id="update">
         UPDATE parking
-        SET name = #{name},
-            location = #{location},
-            image = #{image},
-            latitude = #{latitude},
-            longitude = #{longitude}
-            status = #{status}
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
         WHERE id = #{id}
     </update>
 

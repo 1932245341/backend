@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.MarketerMapper">
+
+
+    <!-- 申请成为商家（自动回填自增ID） -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO marketer (name, username, password, phone, type, email, license, address, manager, create_time)
+        VALUES (#{name}, #{username}, #{password}, #{phone}, #{type}, #{email}, #{license}, #{address}, #{manager}, #{createTime})
+    </insert>
+
+    <!-- 根据ID删除商家 -->
+    <delete id="deleteById">
+        DELETE FROM marketer
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 更新商家信息（动态SQL） -->
+    <update id="update">
+        UPDATE marketer
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="manager != null">
+                price = #{manager},
+            </if>
+            <if test="license != null">
+                image = #{license},
+            </if>
+            <if test="address != null">
+                description = #{address},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                status = #{phone},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Marketer">
+        select * from marketer
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

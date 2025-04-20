@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.RoomMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into room
+        (hotel_id,name,capacity,floor,area,price, image, bed)
+        values
+            (#{hotelId},#{name}, #{capacity}, #{floor}, #{area}, #{price}, #{image}, #{bed})
+    </insert>
+
+    <update id="update">
+        update room
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="capacity != null">
+                capacity = #{capacity},
+            </if>
+            <if test="floor != null">
+                floor = #{floor},
+            </if>
+            <if test="area != null">
+                area = #{area},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="bed != null">
+                bed = #{bed},
+            </if>
+        </set>
+
+        where id = #{id}
+    </update>
+
+    <!-- 根据ID删除 -->
+    <delete id="deleteById">
+        DELETE FROM room
+        WHERE id = #{id}
+    </delete>
+
+    <select id="queryByHotelId" resultType="org.example.pojo.entity.Room">
+        select * from room
+        <where>
+        and hotel_id = #{hotelId}
+        </where>
+    </select>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Room">
+        select * from room
+        <where>
+            <if test="name != null and name !=''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="hotelId != null">
+                and hotel_id = #{hotelId}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -8,7 +8,7 @@ import org.example.server.server.interfa.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
-import org.example.pojo.dto.ParkingPageQueryDTO;
+import org.example.pojo.dto.PageQueryDTO;
 
 import java.util.List;
 
@@ -37,12 +37,12 @@ public class ParkingServiceImpl implements ParkingService {
     /**
      * 分页查询停车场
      *
-     * @param parkingPageQueryDTO
+     * @param pageQueryDTO
      */
     @Override
-    public PageResult queryPage(ParkingPageQueryDTO parkingPageQueryDTO) {
-        PageHelper.startPage(parkingPageQueryDTO.getPage(), parkingPageQueryDTO.getPageSize());
-        Page<Parking> page = parkingMapper.pageQuery(parkingPageQueryDTO);
+    public PageResult queryPage(PageQueryDTO pageQueryDTO) {
+        PageHelper.startPage(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
+        Page<Parking> page = parkingMapper.pageQuery(pageQueryDTO);
         long total = page.getTotal();
         List<Parking> records = page.getResult();
         return new PageResult(total,records);

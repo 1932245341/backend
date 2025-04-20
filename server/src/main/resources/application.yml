@@ -28,7 +28,7 @@ mybatis:
 iyouyangshuo:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: csg
+    admin-secret-key: d2VsbCBhbGxvd2VkIGZyb20gdGhlIHN0b3JtIGp1c3QgbG9uZyByZXBvcnRzIGF
     # 设置jwt过期时间
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
@@ -36,6 +36,9 @@ iyouyangshuo:
     user-secret-key: 4vEPzY5X4b8e3wKZqsdfgdfafsdasdasafsd
     user-ttl: 7200000
     user-token-name: authorization
+    marketer-secret-key: 4asdjfklfdasjdffsdfdsgfsgzY5Xasdasafsd
+    marketer-ttl: 7200000
+    marketer-token-name: marketer
 
   alioss:
     endpoint: oss-cn-guangzhou.aliyuncs.com

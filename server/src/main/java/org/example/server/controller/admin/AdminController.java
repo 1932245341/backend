@@ -37,7 +37,7 @@ public class AdminController {
      */
     @PostMapping("/login")
     public Result<AdminLoginVO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
-        log.info("员工登录：{}", adminLoginDTO);
+        log.info("管理员登录：{}", adminLoginDTO);
 
         Admin admin = adminService.login(adminLoginDTO);
 
@@ -54,6 +54,7 @@ public class AdminController {
                 jwtProperties.getAdminTtl(),
                 //令牌中间的值
                 claims);
+        System.out.println("管理员控制器的token"+token);
 
         //生成对象响应给前端
         AdminLoginVO adminLoginVO = AdminLoginVO.builder().id(admin.getId()).userName(admin.getUsername()).name(admin.getName()).token(token).build();

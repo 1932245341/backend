@@ -44,7 +44,6 @@ public class AdminServiceImpl implements AdminService {
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
-
         //3、返回实体对象
         return admin;
     }

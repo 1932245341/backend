@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.ScenicMapper">
+
+
+    <!-- 查询所有景区 -->
+    <select id="queryAllScenic" resultType="org.example.pojo.entity.Scenic">
+        SELECT *
+        FROM scenic
+    </select>
+
+    <select id="recommendation" resultType="org.example.pojo.entity.Scenic">
+        SELECT *
+        FROM scenic
+        ORDER BY score DESC LIMIT 10;
+    </select>
+
+    <!-- 新增景区（自动回填自增ID） -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO scenic (name, description,time,location, latitude, longitude,contact,image)
+        VALUES (#{name},#{description},#{time}, #{location}, #{latitude}, #{longitude},#{contact},#{image})
+    </insert>
+
+    <!-- 根据ID删除 -->
+    <delete id="deleteById">
+        DELETE FROM scenic
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 更新景区信息（动态SQL） -->
+    <update id="update">
+        UPDATE scenic
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+           <if test="contact != null">
+                contact = #{contact},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="org.example.pojo.entity.Scenic">
+        select * from scenic
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>
