@@ -15,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hotel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private int id;
     private long marketerId;
     private String name;

@@ -41,4 +41,10 @@ public class DishController {
         return Result.success(dishList);
     }
 
+    @GetMapping("/detail")
+    public Result<Dish> getById(Integer id) {
+        Dish dish = dishService.getById(id);
+        return Result.success(dish);
+    }
+
 }

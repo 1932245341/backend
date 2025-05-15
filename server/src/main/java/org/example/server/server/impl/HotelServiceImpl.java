@@ -42,6 +42,11 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public List<Hotel> userquery(Hotel hotel) {
+        return hotelMapper.userquery(hotel);
+    }
+
+    @Override
     public List<Hotel> queryByprice() {
         return hotelMapper.queryByprice();
     }
@@ -51,6 +56,10 @@ public class HotelServiceImpl implements HotelService {
         return hotelMapper.queryByMarkerId(markerId);
     }
 
+    @Override
+    public Hotel queryById(int id) {
+        return hotelMapper.queryById(id);
+    }
 
     /**
      * 管理员端分页查询所有民宿

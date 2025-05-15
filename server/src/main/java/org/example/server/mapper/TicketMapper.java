@@ -28,4 +28,6 @@ public interface TicketMapper {
      * @return
      */
     Page<Ticket> pageQuery(PageQueryDTO pageQueryDTO);
+
+    Ticket queryById(Integer id);
 }

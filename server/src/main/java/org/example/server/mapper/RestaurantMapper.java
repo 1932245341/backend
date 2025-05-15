@@ -13,6 +13,9 @@ public interface RestaurantMapper {
      void deleteById(int id);
      void update(Restaurant restaurant);
 
+     /// 根据id查询详细页
+     Restaurant queryById(int id);
+
 
     /**
      * 用户端查询所有的餐馆(存入redis)

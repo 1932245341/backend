@@ -3,7 +3,9 @@ package org.example.server.controller.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
+import org.example.common.context.BaseContext;
 import org.example.common.result.Result;
+import org.example.pojo.entity.Address;
 import org.example.pojo.entity.Cart;
 import org.example.server.server.interfa.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,10 @@ public class CartController {
 
     @GetMapping("/list")
     public Result<List<Cart>> list() {
-        List<Cart> cartList = cartService.getCartByUserId();
-        return Result.success(cartList);
+        Cart cart = new Cart();
+        cart.setUserId(BaseContext.getCurrentId());
+        List<Cart> list = cartService.getCartByUserId(cart);
+        return Result.success(list);
     }
 
     @PostMapping("/add")

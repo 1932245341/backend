@@ -40,4 +40,11 @@ public class RestaurantController {
         redisTemplate.opsForValue().set(cachekey, restaurantList);
         return Result.success(restaurantList);
     }
+
+    @GetMapping("/detail")
+    public Result<Restaurant> getById(@RequestParam int id) {
+        Restaurant restaurant = restaurantService.queryById(id);
+        return Result.success(restaurant);
+    }
+
 }

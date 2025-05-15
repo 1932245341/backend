@@ -1,6 +1,7 @@
 package org.example.server.mapper;
 
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Select;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Room;
 
@@ -26,4 +27,8 @@ public interface RoomMapper {
      * @return
      */
     Page<Room> pageQuery(PageQueryDTO PageQueryDTO);
+
+    //详细页
+    @Select("select * from room where id = #{id}")
+    Room getById(Integer id);
 }

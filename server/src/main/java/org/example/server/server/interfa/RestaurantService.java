@@ -14,4 +14,5 @@ public interface RestaurantService {
     List<Restaurant> queryAllRestaurant();
     PageResult queryPage(PageQueryDTO pageQueryDTO);
     List<Restaurant> queryByMarkerId(int markerId);
+    Restaurant queryById(int id);
 }

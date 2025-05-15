@@ -41,4 +41,10 @@ public class TicketController {
         return Result.success(ticketList);
     }
 
+    @GetMapping("/detail")
+    public Result<Ticket> queryById(Integer id) {
+        Ticket ticket = ticketService.queryById(id);
+        return Result.success(ticket);
+    }
+
 }

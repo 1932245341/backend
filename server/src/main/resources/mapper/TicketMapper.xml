@@ -8,6 +8,11 @@
             values(#{scenicId}, #{name}, #{price}, #{label})
     </insert>
 
+    <select id="queryById" resultType="org.example.pojo.entity.Ticket">
+        select * from ticket
+        where id = #{id}
+    </select>
+
 
 
     <update id="update">
@@ -34,12 +39,7 @@
 
     <select id="queryByScenicId" resultType="org.example.pojo.entity.Ticket">
         select * from ticket
-        <where>
-            <if test="name != null">
-                and name like concat('%',#{name},'%')
-            </if>
-            and scenic_id = #{scenicId}
-        </where>
+      where scenic_id = #{scenicId}
     </select>
 
     <select id="pageQuery" resultType="org.example.pojo.entity.Ticket">

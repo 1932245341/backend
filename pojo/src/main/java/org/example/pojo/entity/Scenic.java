@@ -19,4 +19,6 @@ public class Scenic implements Serializable {
     private String image; // 景点封面图片
     private Float score;
     private BigDecimal minprice;
+    private Integer sale;
+    private String label;
 }

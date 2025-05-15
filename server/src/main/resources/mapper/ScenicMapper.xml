@@ -9,16 +9,22 @@
         FROM scenic
     </select>
 
-    <select id="recommendation" resultType="org.example.pojo.entity.Scenic">
+    <select id="queryById" resultType="org.example.pojo.entity.Scenic">
         SELECT *
+        FROM scenic
+        WHERE id = #{id}
+    </select>
+
+    <select id="recommendation" resultType="org.example.pojo.entity.Scenic">
+        SELECT id,image,name,minprice
         FROM scenic
         ORDER BY score DESC LIMIT 10;
     </select>
 
     <!-- 新增景区（自动回填自增ID） -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO scenic (name, description,time,location, latitude, longitude,contact,image)
-        VALUES (#{name},#{description},#{time}, #{location}, #{latitude}, #{longitude},#{contact},#{image})
+        INSERT INTO scenic (name, description,time,location, latitude, longitude,contact,image,label)
+        VALUES (#{name},#{description},#{time}, #{location}, #{latitude}, #{longitude},#{contact},#{image},#{label})
     </insert>
 
     <!-- 根据ID删除 -->
@@ -55,6 +61,9 @@
             </if>
             <if test="image != null">
                 image = #{image},
+            </if>
+            <if test="label != null">
+                label = #{label},
             </if>
         </set>
         WHERE id = #{id}

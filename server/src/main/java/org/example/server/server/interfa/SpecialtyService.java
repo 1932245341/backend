@@ -26,6 +26,8 @@ public interface SpecialtyService {
 
     public List<Specialty> search(String name);
 
+    public Specialty getSpecialtyById(int id);
+
     /**
      * 管理员端分页查询特产
      *

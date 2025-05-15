@@ -15,4 +15,5 @@ public interface TicketService {
 
 
     PageResult queryPage(PageQueryDTO pageQueryDTO);
+    Ticket queryById(Integer id);
 }

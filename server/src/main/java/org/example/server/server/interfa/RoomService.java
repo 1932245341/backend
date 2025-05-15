@@ -15,4 +15,6 @@ public interface RoomService {
 
 
     PageResult queryPage(PageQueryDTO pageQueryDTO);
+
+    Room getById(Integer id);
 }

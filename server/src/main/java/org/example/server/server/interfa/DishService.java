@@ -15,4 +15,6 @@ public interface DishService {
 
 
     PageResult queryPage(PageQueryDTO pageQueryDTO);
+
+    Dish getById(Integer id);//菜品详细页
 }

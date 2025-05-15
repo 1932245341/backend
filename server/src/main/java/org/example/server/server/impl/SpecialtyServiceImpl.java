@@ -52,6 +52,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         return specialtyMapper.ByType(type);
     }
 
+    @Override
+    public Specialty getSpecialtyById(int id) {
+        return specialtyMapper.getSpecialtyById(id);
+    }
+
     /**
      * 查询所有特产（综合排序）
      * @return

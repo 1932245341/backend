@@ -46,7 +46,7 @@ public class JwtTokenMarketerInterceptor implements HandlerInterceptor {
 
         //2、校验令牌
         try {
-            log.info("jwt校验:{}", token);
+            log.info("商家jwt校验:{}", token);
             Jws<Claims> claimsJws = JwtUtils.parseJWT(token,jwtProperties.getMarketerSecretKey());
             Long marketerId = Long.valueOf(claimsJws.getPayload().get(JwtClaimsConstant.MARKER_ID).toString());
             BaseContext.setCurrentId(marketerId);

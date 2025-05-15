@@ -29,6 +29,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public Ticket queryById(Integer id) { //详细页
+        return ticketMapper.queryById(id);
+    }
+
+    @Override
     public void update(Ticket ticket) {
         ticketMapper.update(ticket);
     }

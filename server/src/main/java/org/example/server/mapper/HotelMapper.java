@@ -1,8 +1,11 @@
 package org.example.server.mapper;
 
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Select;
 import org.example.pojo.dto.PageQueryDTO;
+import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Hotel;
+import org.example.pojo.entity.Restaurant;
 
 import java.util.List;
 
@@ -12,6 +15,7 @@ public interface HotelMapper {
      void deleteById(int id);
      void update(Hotel hotel);
 
+    List<Hotel> userquery(Hotel hotel);
 
     /**
      * 用户端查询所有的民宿（平台严选）(存入redis)
@@ -26,7 +30,8 @@ public interface HotelMapper {
     List<Hotel> queryByprice();
 
 
-
+    /// 根据id查询详细页
+    Hotel queryById(int id);
 
     /**
      * 查询本商家的民宿
@@ -42,4 +47,6 @@ public interface HotelMapper {
      * @return
      */
     Page<Hotel> pageQuery(PageQueryDTO pageQueryDTO);
+
+
 }

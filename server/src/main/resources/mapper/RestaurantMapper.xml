@@ -3,9 +3,9 @@
 <mapper namespace="org.example.server.mapper.RestaurantMapper">
 
 
-    <!-- 查询本商家的所有餐馆 -->
+    <!-- 查询所有餐馆 -->
     <select id="queryAllRestaurant" resultType="org.example.pojo.entity.Restaurant">
-        SELECT name, location, latitude, longitude, contact, image, score,minprice
+        SELECT id, name, location, latitude, longitude, contact, image, score,minprice, time, sale
         FROM restaurant
     </select>
 
@@ -18,8 +18,8 @@
 
     <!-- 新增餐馆（自动回填自增ID） -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO restaurant (marketer_id,name, location, latitude, longitude,contact,license,image)
-        VALUES (#{marketerId},#{name}, #{location}, #{latitude}, #{longitude},#{contact},#{license},#{image})
+        INSERT INTO restaurant (marketer_id,name, location, latitude, longitude,contact,license,image,time)
+        VALUES (#{marketerId},#{name}, #{location}, #{latitude}, #{longitude},#{contact},#{license},#{image},#{time})
     </insert>
 
     <!-- 根据ID删除 -->
@@ -54,6 +54,9 @@
             <if test="image != null">
                 image = #{image},
             </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
             <if test="status != null">
                 status = #{status},
             </if>
@@ -68,6 +71,12 @@
                 and name like concat('%', #{name}, '%')
             </if>
         </where>
+    </select>
+
+    <select id="queryById" resultType="org.example.pojo.entity.Restaurant">
+        SELECT *
+        FROM restaurant
+        WHERE id = #{id}
     </select>
 
 

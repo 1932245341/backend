@@ -1,6 +1,8 @@
 server:
   port: 8080
 
+
+
 # 数据库配置
 spring:
   datasource:
@@ -46,6 +48,7 @@ iyouyangshuo:
     access-key-secret: 78xgZfX80zH7khGiOJo4jYvUX1luww
     bucket-name: iyouyangshuo
 
+
   wechat:
     appid: wx84dc7360e14c600d
     secret: 3d8de18f0ff56d7e9080b15bb766fadf
@@ -57,23 +60,13 @@ iyouyangshuo:
     notifyUrl:  # 微信支付通知URL
     refundNotifyUrl:  # 微信支付退款通知URL
 
-# springdoc-openapi项目配置
+# 配置swagger文档的访问路径，访问地址：http://127.0.0.1:8080/swagger-ui.html
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
-  group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
-      packages-to-scan: org.example.server
-# knife4j的增强配置，不需要增强可以不配
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
+
 
 pagehelper:
   helperDialect: mysql

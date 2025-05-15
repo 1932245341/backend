@@ -10,7 +10,7 @@
 
     <!-- 获取某个用户的所有购物车商品 -->
     <select id="getCartByUserId" resultType="org.example.pojo.entity.Cart">
-        SELECT c.number,c.amount,s.name,s.image
+        SELECT c.id,c.user_id,c.specialty_id,c.address_id,c.number,c.amount,s.name,s.image
         FROM cart c
                  JOIN specialty s ON s.id = c.specialty_id
         WHERE c.user_id = #{userId}

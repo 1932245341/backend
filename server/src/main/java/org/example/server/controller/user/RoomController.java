@@ -1,6 +1,5 @@
 package org.example.server.controller.user;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.result.Result;
 import org.example.pojo.entity.Room;
@@ -37,6 +36,12 @@ public class RoomController {
         roomList = roomService.queryByHotelId(hotel_id);
         redisTemplate.opsForValue().set(cachekey, roomList);
         return Result.success(roomList);
+    }
+
+    @GetMapping("/detail")
+    public Result<Room> getById(Integer id) {
+        Room room = roomService.getById(id);
+        return Result.success(room);
     }
 
 }

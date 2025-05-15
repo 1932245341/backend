@@ -48,6 +48,11 @@ public class ScenicServiceImpl implements ScenicService {
         return scenicMapper.recommendation();
     }
 
+    @Override
+    public Scenic queryById(int id) {
+        return scenicMapper.queryById(id);
+    }
+
 
 
     /**

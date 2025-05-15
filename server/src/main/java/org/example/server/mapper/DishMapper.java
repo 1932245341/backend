@@ -1,6 +1,7 @@
 package org.example.server.mapper;
 
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Select;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Dish;
 
@@ -26,4 +27,8 @@ public interface DishMapper {
      * @return
      */
     Page<Dish> pageQuery(PageQueryDTO PageQueryDTO);
+
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Integer id);
+
 }

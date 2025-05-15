@@ -3,10 +3,23 @@
 <mapper namespace="org.example.server.mapper.HotelMapper">
 
 
-    <!-- 查询本商家的所有民宿 -->
+    <!-- 查询所有民宿 -->
     <select id="queryAllHotel" resultType="org.example.pojo.entity.Hotel">
-        SELECT name, location, latitude, longitude, contact, image, label,score,opening_year, fitment_year, score,floor_num, room_num,minprice
+        SELECT *
         FROM hotel
+    </select>
+
+    <select id="userquery" resultType="org.example.pojo.entity.Hotel">
+        SELECT *
+        FROM hotel
+        <where>
+            <if test="name != null">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="label != null">
+                and label like concat('%',#{label},'%')
+            </if>
+        </where>
     </select>
 
     <select id="queryByprice" resultType="org.example.pojo.entity.Hotel">
@@ -84,6 +97,13 @@
 
     <select id="pageQuery" resultType="org.example.pojo.entity.Hotel">
         select * from hotel
+    </select>
+
+    <!-- 根据ID查询民宿详细页 -->
+    <select id="queryById" resultType="org.example.pojo.entity.Hotel">
+        SELECT *
+        FROM hotel
+        WHERE id = #{id}
     </select>
 
 

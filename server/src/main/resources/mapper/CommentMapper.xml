@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.CommentMapper">
+
+    <insert id="insert" parameterType="org.example.pojo.entity.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment (user_id, scenic_id, hotel_id, restaurant_id, specialty_id, score, content, create_time, image)
+        VALUES ( #{userId}, #{scenicId}, #{hotelId}, #{restaurantId}, #{specialtyId}, #{score}, #{content}, #{createTime},#{image})
+    </insert>
+
+    <delete id="deleteById" parameterType="org.example.pojo.entity.Comment">
+        DELETE FROM comment WHERE id = #{id} AND user_id = #{userId}
+    </delete>
+
+    <select id="qurey" resultType="org.example.pojo.entity.Comment">
+        SELECT * FROM comment
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="scenicId != null">
+                AND scenic_id = #{scenicId}
+            </if>
+            <if test="hotelId != null">
+                AND hotel_id = #{hotelId}
+            </if>
+            <if test="restaurantId != null">
+                AND restaurant_id = #{restaurantId}
+            </if>
+            <if test="specialtyId != null">
+                AND specialty_id = #{specialtyId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

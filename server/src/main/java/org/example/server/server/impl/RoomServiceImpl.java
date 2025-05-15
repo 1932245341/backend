@@ -39,6 +39,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public Room getById(Integer id) {
+        return roomMapper.getById(id);
+    }
+
+    @Override
     public List<Room> queryByHotelId(long hotel_id) {
         return roomMapper.queryByHotelId(hotel_id);
     }

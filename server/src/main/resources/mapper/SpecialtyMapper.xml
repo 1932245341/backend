@@ -58,5 +58,9 @@
         </where>
     </select>
 
+   <select id="getSpecialtyById" resultType="org.example.pojo.entity.Specialty">
+        select * from specialty where id = #{id}
+   </select>
+
 
 </mapper>

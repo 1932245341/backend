@@ -55,4 +55,10 @@ public class ScenicController {
         redisTemplate.opsForValue().set(cachekey, scenicList);
         return Result.success(scenicList);
     }
+
+    @GetMapping("/detail")
+    public Result<Scenic> detail(int id) {
+        Scenic scenic = scenicService.queryById(id);
+        return Result.success(scenic);
+    }
 }

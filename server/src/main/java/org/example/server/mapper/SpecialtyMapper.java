@@ -22,6 +22,8 @@ public interface SpecialtyMapper {
 
     List<Specialty> list();
 
+    Specialty getSpecialtyById(int id);//详细页
+
     @Select("select * from specialty WHERE name LIKE CONCAT('%', #{name}, '%') ")
     List<Specialty> search(String name);
 

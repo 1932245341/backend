@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 public class Dish implements Serializable {
     private int id;

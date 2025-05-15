@@ -1,4 +1,4 @@
-package org.example.server.controller.admin;
+package org.example.server.controller.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.constant.MessageConstant;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/admin/common")
+@RequestMapping("/common/file")
 public class CommonController {
     @Autowired
     private AliOssUtil aliOssUtil;

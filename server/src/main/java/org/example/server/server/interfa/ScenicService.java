@@ -15,5 +15,6 @@ public interface ScenicService {
     List<Scenic> queryAllScenic();
     List<Scenic> recommendation();
     PageResult queryPage(PageQueryDTO pageQueryDTO);
+    Scenic queryById(int id);
 
 }

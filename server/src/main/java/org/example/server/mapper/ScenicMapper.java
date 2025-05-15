@@ -20,6 +20,8 @@ public interface ScenicMapper {
      */
     List<Scenic> queryAllScenic();
 
+    /// 根据id查询详细页
+    Scenic queryById(int id);
 
     //用户端推荐的景区（评分前10名）
     List<Scenic> recommendation();

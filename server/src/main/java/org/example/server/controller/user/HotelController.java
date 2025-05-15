@@ -6,9 +6,7 @@ import org.example.pojo.entity.Hotel;
 import org.example.server.server.impl.HotelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,5 +53,17 @@ public class HotelController {
         hotelList = hotelService.queryByprice();
         redisTemplate.opsForValue().set(cachekey, hotelList);
         return Result.success(hotelList);
+    }
+
+    @PostMapping("/userquery")
+    public Result<List<Hotel>> userquery(@RequestBody Hotel hotel) {
+        List<Hotel> hotelList = hotelService.userquery(hotel);
+        return Result.success(hotelList);
+    }
+
+    @GetMapping("/detail")
+    public Result<Hotel> detail(@RequestParam int id) {
+        Hotel hotel = hotelService.queryById(id);
+        return Result.success(hotel);
     }
 }

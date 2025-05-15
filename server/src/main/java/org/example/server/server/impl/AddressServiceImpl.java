@@ -32,7 +32,7 @@ public class AddressServiceImpl implements AddressService {
      */
     public void save(Address address) {
         address.setUserId(BaseContext.getCurrentId());
-        address.setIsDefault(0);
+      //  address.setIsDefault(0);
         addressMapper.insert(address);
     }
 

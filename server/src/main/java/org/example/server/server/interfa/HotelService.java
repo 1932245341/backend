@@ -15,4 +15,7 @@ public interface HotelService {
     List<Hotel> queryByprice();
     PageResult queryPage(PageQueryDTO pageQueryDTO);
     List<Hotel> queryByMarkerId(int markerId);
+
+    List<Hotel> userquery(Hotel hotel);
+    Hotel queryById(int id);
 }

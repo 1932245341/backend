@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Cart implements Serializable {
 
     private int id;
-    private int userId;
+    private Long userId;
     private int specialtyId;
     private int addressId;
     private int number;

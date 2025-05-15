@@ -113,4 +113,9 @@ public class SpecialtyController {
         return Result.success(specialtyList);
     }
 
+    @GetMapping("/detail")
+    public Result<Specialty> getById(@RequestParam int id) {
+        Specialty specialty = specialtyService.getSpecialtyById(id);
+        return Result.success(specialty);
+    }
 }

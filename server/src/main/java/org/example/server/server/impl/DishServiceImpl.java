@@ -50,5 +50,10 @@ public class DishServiceImpl implements DishService {
         return new PageResult(total,records);
     }
 
+    @Override
+    public Dish getById(Integer id) {
+        return dishMapper.getById(id);
+    }
+
 
 }

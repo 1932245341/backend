@@ -42,13 +42,7 @@
     <select id="queryByRestaurantId" resultType="org.example.pojo.entity.Dish">
         select * from dish
         <where>
-            <if test="name != null">
-                and name like concat('%',#{name},'%')
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            and restaurant_id = #{restaurant_id}
+          restaurant_id = #{restaurantId}
         </where>
     </select>
 

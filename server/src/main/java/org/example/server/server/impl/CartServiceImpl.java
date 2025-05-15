@@ -18,13 +18,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addCart(Cart cart) {
+        cart.setUserId(BaseContext.getCurrentId());
         cartMapper.addCart(cart);
     }
 
     @Override
-    public List<Cart> getCartByUserId() {
-        long userId = BaseContext.getCurrentId();
-        Cart cart = Cart.builder().userId((int)userId).build();
+    public List<Cart> getCartByUserId(Cart cart) {
         return cartMapper.getCartByUserId(cart);
     }
 

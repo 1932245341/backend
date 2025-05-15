@@ -22,5 +22,7 @@ public class Restaurant implements Serializable {
     private Float score;
     private Integer status;//状态，0申请中，1已通过,2已拒绝
     private BigDecimal minprice;
+    private String time;
+    private Integer sale;
 
 }

@@ -42,10 +42,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public Restaurant queryById(int id) {
+        return restaurantMapper.queryById(id);
+    }
+
+    @Override
     public List<Restaurant> queryByMarkerId(int markerId) {
         return restaurantMapper.queryByMarkerId(markerId);
     }
-
 
     /**
      * 管理员端分页查询所有餐馆
