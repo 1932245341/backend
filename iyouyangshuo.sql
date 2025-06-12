@@ -11,7 +11,7 @@
  Target Server Version : 80036
  File Encoding         : 65001
 
- Date: 20/04/2025 16:28:50
+ Date: 15/05/2025 20:37:39
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `address`  (
   `user_id` bigint(0) NOT NULL COMMENT '用户id',
   `consignee` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '收货人',
   `sex` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '性别',
-  `phone` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '手机号',
+  `phone` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '手机号',
   `province_code` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '省级区划编号',
   `province_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '省级名称',
   `city_code` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '市级区划编号',
@@ -37,13 +37,13 @@ CREATE TABLE `address`  (
   `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '标签',
   `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '默认 0 否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '地址簿' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '地址簿' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES (1, 6, '陈松桂', '0', '18378950813', '45', '广西壮族自治区', '4503', '桂林市', '450323', '灵川县', '桂电花江校区', '3', 1);
-INSERT INTO `address` VALUES (5, 6, '', '1', '', '', '大苏打', '', '', '', '', '', '', 0);
+INSERT INTO `address` VALUES (25, 6, '陈松桂', NULL, '18378950813', NULL, '广西壮族自治区', NULL, '桂林市', '450323', '灵川县', '桂电花江', NULL, 1);
+INSERT INTO `address` VALUES (26, 6, '陈松桂', NULL, '18378950813', NULL, '广西壮族自治区', NULL, '贵港市', '450881', '桂平市', '3123', NULL, 0);
 
 -- ----------------------------
 -- Table structure for admin
@@ -80,15 +80,17 @@ CREATE TABLE `cart`  (
   `amount` decimal(10, 2) DEFAULT NULL COMMENT '总价',
   `create_time` datetime(0) DEFAULT NULL COMMENT '时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
 INSERT INTO `cart` VALUES (1, 6, 1, 1, 1, 1.10, '2025-04-10 15:03:36');
-INSERT INTO `cart` VALUES (2, 2, 2, 3, NULL, NULL, NULL);
-INSERT INTO `cart` VALUES (4, 0, 0, 0, 3, 312.30, NULL);
-INSERT INTO `cart` VALUES (5, 6, 0, 0, 3, 312.30, NULL);
+INSERT INTO `cart` VALUES (13, 6, 3, 25, 5, 375.00, NULL);
+INSERT INTO `cart` VALUES (14, 6, 2, 25, 1, 9.90, NULL);
+INSERT INTO `cart` VALUES (15, 6, 2, 1, 1, 9.90, NULL);
+INSERT INTO `cart` VALUES (16, 6, 2, 25, 1, 9.90, NULL);
+INSERT INTO `cart` VALUES (19, 6, 2, 25, 1, 9.90, NULL);
 
 -- ----------------------------
 -- Table structure for comment
@@ -100,12 +102,30 @@ CREATE TABLE `comment`  (
   `scenic_id` int(0) DEFAULT NULL COMMENT '关联景区ID（若为景区评价时使用）',
   `hotel_id` int(0) DEFAULT NULL COMMENT '关联民宿ID（若为民宿评价时使用）',
   `restaurant_id` int(0) DEFAULT NULL COMMENT '关联餐馆ID（若为餐馆评价时使用）',
-  `rating` int(0) NOT NULL COMMENT '评分，0到5分之间',
+  `specialty_id` int(0) DEFAULT NULL COMMENT '特产id',
+  `score` int(0) NOT NULL COMMENT '评分，0到5分之间',
   `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '评价内容',
-  `type` enum('景区','民宿','餐饮') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '评价类型，区分景区或民宿或餐饮',
-  `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '评价创建时间',
+  `type` enum('景区','民宿','餐饮') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '评价类型，区分景区或民宿或餐饮',
+  `create_time` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '评价创建时间',
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '如果有评价图片',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+INSERT INTO `comment` VALUES (1, 6, 1, NULL, NULL, NULL, 4, '非常棒的景区', NULL, '2025-05-06 16:47:07', NULL);
+INSERT INTO `comment` VALUES (2, 6, NULL, NULL, 1, NULL, 5, '好吃', NULL, '2025-05-06 16:47:13', '');
+INSERT INTO `comment` VALUES (4, 6, NULL, NULL, NULL, 2, 5, '桂林米粉good', NULL, '2025-05-08 23:01:58', NULL);
+INSERT INTO `comment` VALUES (5, 6, NULL, NULL, NULL, 2, 5, '6666的桂林米粉', NULL, '2025-05-08 23:03:51', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/72507aee-e49b-4018-ab3a-92781b0d5547.jpg');
+INSERT INTO `comment` VALUES (6, 6, NULL, NULL, NULL, 2, 3, '给个3星', NULL, '2025-05-09 14:26:25', '');
+INSERT INTO `comment` VALUES (7, 6, 1, NULL, NULL, NULL, 5, '66666666', NULL, '2025-05-08 23:03:51', NULL);
+INSERT INTO `comment` VALUES (8, 6, NULL, NULL, NULL, 1, 4, '便宜好货', NULL, '2025-05-09 15:13:03', '');
+INSERT INTO `comment` VALUES (9, 6, NULL, NULL, 1, NULL, 3, '3星', NULL, '2025-05-09 15:55:03', '');
+INSERT INTO `comment` VALUES (10, 6, NULL, 1, NULL, NULL, 5, '好!!!!!!!!!!', NULL, '2025-05-09 15:55:20', '');
+INSERT INTO `comment` VALUES (11, 6, 1, NULL, NULL, NULL, 1, '太贵了', NULL, '2025-05-09 15:55:36', '');
+INSERT INTO `comment` VALUES (12, 6, 2, NULL, NULL, NULL, 3, '一般', NULL, '2025-05-11 22:59:35', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/ef54e795-5f69-4c83-84c0-747e3b56da64.jpg');
+INSERT INTO `comment` VALUES (14, 6, 1, NULL, NULL, NULL, 5, '好看!!!!!!!', NULL, '2025-05-11 23:06:29', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/fe49a665-7d96-4760-a036-2ad38936418f.jpg');
 
 -- ----------------------------
 -- Table structure for dish
@@ -121,13 +141,15 @@ CREATE TABLE `dish`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '介绍',
   `status` int(0) DEFAULT NULL COMMENT '状态，0禁用，1启用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dish
 -- ----------------------------
-INSERT INTO `dish` VALUES (1, 1, '321123', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `dish` VALUES (2, 1, '43', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `dish` VALUES (1, 1, '特色牛八宝.尝鲜二人餐', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E7%89%B9%E8%89%B2%E7%89%9B%E5%85%AB%E5%AE%9D.%E5%B0%9D%E9%B2%9C%E4%BA%8C%E4%BA%BA%E9%A4%90.jpg', 0, 128.00, '老桂林酸汤锅底二选一:\n老桂林酸辣锅 28\n老桂林酸汤锅*菌汤鸳鸯锅 32\n桂林传统蘸碟2位 6\n牛八宝猪杂拼盘1份 78\n阿姨手打牛筋丸1分48\n广西非物质文化遗产酸野1份18元\n广西本土土货：\n阳朔炸腐竹1份12\n阳朔节瓜1份10\n广西本土青菜4选一:\n罗城红薯叶1份10\n南瓜苗1份10\n博白ong菜1份10\n阳朔时令青菜1份10\n五常大米2份4', 1);
+INSERT INTO `dish` VALUES (2, 1, '牛杂', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E7%89%9B%E6%9D%82.jpg', 0, 89.00, '好吃的牛杂', 1);
+INSERT INTO `dish` VALUES (3, 2, '番茄啤酒鱼', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC%E8%8F%9C1.png', 0, 109.00, '独家秘制酱料，做出了阳朔最具特色的啤酒鱼。', 1);
+INSERT INTO `dish` VALUES (4, 2, '田螺', 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC%E8%8F%9C2.png', 0, 29.00, '好吃的田螺', 1);
 
 -- ----------------------------
 -- Table structure for dish_book
@@ -167,12 +189,47 @@ CREATE TABLE `hotel`  (
   `status` int(0) DEFAULT NULL COMMENT '状态，0申请中，1已通过，2已拒绝',
   `minprice` decimal(10, 2) DEFAULT NULL COMMENT '该民宿最低价格',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of hotel
 -- ----------------------------
-INSERT INTO `hotel` VALUES (1, 7, '阳朔县朔园度假酒店（党校公寓）', '广西壮族自治区桂林市阳朔县阳朔镇阳朔县朔园度假酒店-贵宾楼', 24.778372, 110.488739, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%8E%BF%E6%9C%94%E5%9B%AD%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97%EF%BC%88%E5%85%9A%E6%A0%A1%E5%85%AC%E5%AF%93%EF%BC%89.png', '三星/舒适', '22024', '2020', NULL, 4, 119, NULL, 1, 328.00);
+INSERT INTO `hotel` VALUES (1, 7, '阳朔县朔园度假酒店（党校公寓）', '广西壮族自治区桂林市阳朔县阳朔镇阳朔县朔园度假酒店-贵宾楼', 24.778372, 110.488739, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%8E%BF%E6%9C%94%E5%9B%AD%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97%EF%BC%88%E5%85%9A%E6%A0%A1%E5%85%AC%E5%AF%93%EF%BC%89.png', '三星/舒适', '2024', '2020', 5, 4, 119, NULL, 1, 328.00);
+INSERT INTO `hotel` VALUES (2, 7, '阳朔遇龙河印象度假酒店', '广西壮族自治区桂林市阳朔县高田镇阳朔遇龙河印象度假酒店十里画廊', 24.738497, 110.486107, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E9%81%87%E9%BE%99%E6%B2%B3%E5%8D%B0%E8%B1%A1%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97.png', '5星/豪华', '2021', '2021', NULL, 3, 21, NULL, 1, 768.00);
+INSERT INTO `hotel` VALUES (5, 7, 'asd', NULL, 25.777777, 110.888885, NULL, NULL, '四星/高档', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32412.00);
+
+-- ----------------------------
+-- Table structure for images
+-- ----------------------------
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE `images`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `scenic_id` int(0) DEFAULT NULL COMMENT '当关联的是景区',
+  `restaurant_id` int(0) DEFAULT NULL COMMENT '当关联的是餐馆',
+  `hotel_id` int(0) DEFAULT NULL COMMENT '当关联的是民宿',
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '图片url',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of images
+-- ----------------------------
+INSERT INTO `images` VALUES (1, NULL, 1, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E4%B8%80%E7%89%9B%E4%B8%80%E8%9E%BA%E5%B9%BF%E8%A5%BF%E7%89%9B%E5%85%AB%E5%AE%9D%E7%81%AB%E9%94%85%EF%BC%88%E9%81%87%E9%BE%99%E6%B2%B3%E5%BA%97%EF%BC%89.png');
+INSERT INTO `images` VALUES (2, NULL, 1, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%A4%90%E9%A6%86%E8%BD%AE%E6%92%AD%E5%9B%BE2.png');
+INSERT INTO `images` VALUES (3, NULL, 1, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%A4%90%E9%A6%86%E8%BD%AE%E6%92%AD%E5%9B%BE1.jpg');
+INSERT INTO `images` VALUES (4, NULL, NULL, 1, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%8E%BF%E6%9C%94%E5%9B%AD%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97%EF%BC%88%E5%85%9A%E6%A0%A1%E5%85%AC%E5%AF%93%EF%BC%89.png');
+INSERT INTO `images` VALUES (5, NULL, NULL, 1, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE1.jpg');
+INSERT INTO `images` VALUES (6, 1, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E8%BD%AE%E6%92%AD%E5%9B%BE3.jpg');
+INSERT INTO `images` VALUES (7, 1, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E8%BD%AE%E6%92%AD%E5%9B%BE2.jpg');
+INSERT INTO `images` VALUES (8, 1, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E8%BD%AE%E6%92%AD%E5%9B%BE1.jpg');
+INSERT INTO `images` VALUES (9, 1, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E5%B0%81%E9%9D%A2.png');
+INSERT INTO `images` VALUES (10, 2, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%A6%82%E6%84%8F%E5%B3%B0%E7%B4%A2%E9%81%93%E6%99%AF%E5%8C%BA%E5%B0%81%E9%9D%A2.png');
+INSERT INTO `images` VALUES (11, 2, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%A6%82%E6%84%8F%E5%B3%B0%E8%BD%AE%E6%92%AD%E5%9B%BE2.png');
+INSERT INTO `images` VALUES (12, 2, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%A6%82%E6%84%8F%E5%B3%B0%E8%BD%AE%E6%92%AD%E5%9B%BE1.jpg');
+INSERT INTO `images` VALUES (13, NULL, NULL, 2, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E9%81%87%E9%BE%99%E6%B2%B3%E5%8D%B0%E8%B1%A1%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97.png');
+INSERT INTO `images` VALUES (14, NULL, NULL, 2, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE2.jpg');
+INSERT INTO `images` VALUES (15, NULL, 2, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC.png');
+INSERT INTO `images` VALUES (16, NULL, 2, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC%E8%BD%AE%E6%92%AD%E5%9B%BE1.png');
 
 -- ----------------------------
 -- Table structure for marketer
@@ -193,13 +250,15 @@ CREATE TABLE `marketer`  (
   `status` int(0) DEFAULT 0 COMMENT '0提交中，1已接收，2已拒绝',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `idx_username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '商家信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '商家信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of marketer
 -- ----------------------------
 INSERT INTO `marketer` VALUES (7, '测试test', '6', 'e10adc3949ba59abbe56e057f20f883e', '31241343', NULL, NULL, 'ffgvx', '经办人', '联系地址', '电子邮箱', 1);
 INSERT INTO `marketer` VALUES (8, NULL, 'dfd', '2e0aca891f2a8aedf265edf533a6d9a8', '312', NULL, NULL, '312', 'dsd', NULL, NULL, 0);
+INSERT INTO `marketer` VALUES (9, '阳朔好酒店', '123456', 'e10adc3949ba59abbe56e057f20f883e', '123456', '2025-05-03 14:57:18', NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/bd92a2cb-0101-4cdf-82d0-f2b378d64c5e.png', '张三', NULL, '1932245341@qq.com', 0);
+INSERT INTO `marketer` VALUES (29, '5', '真机test', '1c9ac0159c94d8d0cbedc973445af2da', '6', '2025-05-06 11:30:01', NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/70e5f0ec-7468-45df-a7c9-d083c0a60c5c.png', '6', NULL, '9', 0);
 
 -- ----------------------------
 -- Table structure for orders
@@ -212,15 +271,39 @@ CREATE TABLE `orders`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品名称',
   `num` int(0) DEFAULT NULL COMMENT '商品数量',
   `total` decimal(10, 2) DEFAULT NULL COMMENT '总价格',
-  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `create_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '创建时间',
   `pay_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '支付编号',
-  `pay_time` datetime(0) DEFAULT NULL COMMENT '支付时间',
+  `pay_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '支付时间',
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '订单状态',
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '业务类型（门票、餐饮、住宿、特产）',
   `address_id` int(0) DEFAULT NULL COMMENT '地址id（特产需要）',
-  `pay_type` enum('微信支付','支付宝支付') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '微信或支付宝',
+  `marketer_id` int(0) DEFAULT NULL COMMENT '商家id',
+  `specialty_id` int(0) DEFAULT NULL COMMENT '特产id',
+  `restaurant_id` int(0) DEFAULT NULL COMMENT '菜所属餐馆id',
+  `hotel_id` int(0) DEFAULT NULL COMMENT '房所属民宿id',
+  `scenic_id` int(0) DEFAULT NULL COMMENT '票所属景区id',
+  `ticket_id` int(0) DEFAULT NULL COMMENT '门票id',
+  `room_id` int(0) DEFAULT NULL COMMENT '套房id',
+  `dish_id` int(0) DEFAULT NULL COMMENT '菜id',
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '对应菜、特产、套房封面图片',
+  `date` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '餐饮、门票对应日期',
+  `check_in` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '民宿入住日期',
+  `departure` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '民宿离开日期',
+  `storename` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '（民宿、餐馆、景区）店名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '订单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '订单表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
+INSERT INTO `orders` VALUES (45, '1919675279688159232', 6, '桂林米粉', 1, 9.90, '2025-05-06 16:47:07', NULL, '2025-05-06 20:14:58', '已支付', '特产', 25, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/f626fc2a-190c-45c9-a1a6-0b39fa7c2b57.png', NULL, NULL, NULL, NULL);
+INSERT INTO `orders` VALUES (58, '1919725869218713600', 6, '桂林米粉', 1, 9.90, '2025-05-06 20:08:08', NULL, NULL, '待支付', '特产', 25, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/f626fc2a-190c-45c9-a1a6-0b39fa7c2b57.png', NULL, NULL, NULL, NULL);
+INSERT INTO `orders` VALUES (59, '1919731598147244032', 6, '刘三姐玩偶', 2, 0.02, '2025-05-06 20:30:54', NULL, '2025-05-06 20:33:06', '已支付', '特产', 25, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/aa3745be-2ded-45dd-bc46-d1814a7d539a.png', NULL, NULL, NULL, NULL);
+INSERT INTO `orders` VALUES (68, '1920747191843516416', 6, '印象刘三姐老总统席A1区-19:30场', 1, 828.00, '2025-05-09 15:46:30', NULL, NULL, '已支付', '门票', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E5%B0%81%E9%9D%A2.png', '2025-05-09', NULL, NULL, '印象•刘三姐');
+INSERT INTO `orders` VALUES (69, '1920748976616337408', 6, '雅致双床房', NULL, 399.00, '2025-05-09 15:53:36', NULL, NULL, '已支付', '民宿', NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%9B%85%E8%87%B4%E5%8F%8C%E5%BA%8A%E6%88%BF.png', NULL, '2025-05-09', '2025-05-10', '阳朔县朔园度假酒店（党校公寓）');
+INSERT INTO `orders` VALUES (70, '1920749085592743936', 6, '特色牛八宝.尝鲜二人餐', 1, 128.00, '2025-05-09 15:54:02', NULL, NULL, '已支付', '餐饮', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E7%89%B9%E8%89%B2%E7%89%9B%E5%85%AB%E5%AE%9D.%E5%B0%9D%E9%B2%9C%E4%BA%8C%E4%BA%BA%E9%A4%90.jpg', NULL, NULL, NULL, '一牛一螺广西牛八宝火锅（遇龙河店）');
+INSERT INTO `orders` VALUES (74, '1921576671268876288', 6, '番茄啤酒鱼', 2, 218.00, '2025-05-11 22:42:34', NULL, NULL, '已支付', '餐饮', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 3, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC%E8%8F%9C1.png', NULL, NULL, NULL, '刘姐啤酒鱼');
+INSERT INTO `orders` VALUES (75, '1921580373941780480', 6, '如意峰索道景区成人票', 1, 208.00, '2025-05-11 22:57:17', NULL, NULL, '已支付', '门票', NULL, NULL, NULL, NULL, NULL, 2, 5, NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%A6%82%E6%84%8F%E5%B3%B0%E7%B4%A2%E9%81%93%E6%99%AF%E5%8C%BA%E5%B0%81%E9%9D%A2.png', '2025-05-11', NULL, NULL, '阳朔如意峰索道景区');
 
 -- ----------------------------
 -- Table structure for parking
@@ -261,13 +344,16 @@ CREATE TABLE `restaurant`  (
   `license` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '营业执照图片url',
   `status` int(0) DEFAULT 0 COMMENT '状态，0申请中，1已通过,2已拒绝',
   `minprice` decimal(10, 2) DEFAULT NULL COMMENT '最低价格',
+  `time` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '营业时间',
+  `sale` int(0) DEFAULT 0 COMMENT '菜品总销量',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of restaurant
 -- ----------------------------
-INSERT INTO `restaurant` VALUES (1, 7, '一牛一螺广西牛八宝火锅（遇龙河店）', '阳朔县阳朔镇骥马村委朝阳村12号  一牛一螺  广西牛八宝火锅（遇龙河店）', 24.765, 24.765, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E4%B8%80%E7%89%9B%E4%B8%80%E8%9E%BA%E5%B9%BF%E8%A5%BF%E7%89%9B%E5%85%AB%E5%AE%9D%E7%81%AB%E9%94%85%EF%BC%88%E9%81%87%E9%BE%99%E6%B2%B3%E5%BA%97%EF%BC%89.png', NULL, NULL, 1, 128.00);
+INSERT INTO `restaurant` VALUES (1, 7, '一牛一螺广西牛八宝火锅（遇龙河店）', '阳朔县阳朔镇骥马村委朝阳村12号  一牛一螺  广西牛八宝火锅（遇龙河店）', 24.765, 110.451, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E4%B8%80%E7%89%9B%E4%B8%80%E8%9E%BA%E5%B9%BF%E8%A5%BF%E7%89%9B%E5%85%AB%E5%AE%9D%E7%81%AB%E9%94%85%EF%BC%88%E9%81%87%E9%BE%99%E6%B2%B3%E5%BA%97%EF%BC%89.png', 4, NULL, 1, 128.00, '10:00~22:00', 0);
+INSERT INTO `restaurant` VALUES (2, 9, '刘姐啤酒鱼', '广西桂林市阳朔县田园路10号', 24.7646, 110.507, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%88%98%E5%A7%90%E5%95%A4%E9%85%92%E9%B1%BC.png', NULL, NULL, 1, 29.00, '9:00~23:00', 0);
 
 -- ----------------------------
 -- Table structure for room
@@ -284,14 +370,13 @@ CREATE TABLE `room`  (
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '套房图片（单张）',
   `bed` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '大床（双床）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of room
 -- ----------------------------
-INSERT INTO `room` VALUES (1, 7, '31', NULL, NULL, NULL, NULL, NULL, '双人床');
-INSERT INTO `room` VALUES (3, 4, 'hh', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `room` VALUES (4, 7, 'asd', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `room` VALUES (1, 1, '雅致双床房', 2, '2', 70, 399.00, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%9B%85%E8%87%B4%E5%8F%8C%E5%BA%8A%E6%88%BF.png', '双人床');
+INSERT INTO `room` VALUES (6, 1, '阳光园林景观大床房', 2, '3', 65, 499.00, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%A4%A7%E5%BA%8A%E6%88%BF.png', '大床');
 
 -- ----------------------------
 -- Table structure for room_book
@@ -304,6 +389,10 @@ CREATE TABLE `room_book`  (
   `check_in` date DEFAULT NULL COMMENT '入住日期',
   `departure` date DEFAULT NULL COMMENT '离店日期',
   `total_price` decimal(10, 2) DEFAULT NULL COMMENT '总价，天数*一天单价',
+  `guest` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '入住人姓名',
+  `idcard` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '入住人身份证',
+  `contact` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '联系电话',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
@@ -325,14 +414,16 @@ CREATE TABLE `scenic`  (
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '封面图片url',
   `score` float DEFAULT NULL COMMENT '评分',
   `minprice` decimal(10, 2) DEFAULT NULL COMMENT '最低门票价格',
+  `sale` int(0) DEFAULT 0 COMMENT '销量',
+  `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '标签',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of scenic
 -- ----------------------------
-INSERT INTO `scenic` VALUES (1, '印象•刘三姐', NULL, '19:00-23:00', '广西壮族自治区桂林市阳朔县阳朔镇印象·刘三姐', 24.766960, 110.508034, '0773-8818008', NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E5%B0%81%E9%9D%A2.png', NULL, 118.00);
-INSERT INTO `scenic` VALUES (2, '阳朔如意峰索道景区', NULL, '7:00-17:30', '广西壮族自治区桂林市阳朔县高田镇桂林阳朔如意峰索道景区售票处阳朔如意峰度假酒店', 24.679443, 110.471077, '0773-8776628', NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%A6%82%E6%84%8F%E5%B3%B0%E7%B4%A2%E9%81%93%E6%99%AF%E5%8C%BA%E5%B0%81%E9%9D%A2.png', NULL, 110.00);
+INSERT INTO `scenic` VALUES (1, '印象•刘三姐', NULL, '19:00-23:00', '广西壮族自治区桂林市阳朔县阳朔镇印象·刘三姐', 24.766960, 110.508034, '0773-8818008', NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E5%8D%B0%E8%B1%A1%E5%88%98%E4%B8%89%E5%A7%90%E5%B0%81%E9%9D%A2.png', 3.8, 118.00, 0, '桂林大型山水实景演出');
+INSERT INTO `scenic` VALUES (2, '阳朔如意峰索道景区', NULL, '7:00-17:30', '广西壮族自治区桂林市阳朔县高田镇桂林阳朔如意峰索道景区售票处阳朔如意峰度假酒店', 24.679443, 110.471077, '0773-8776628', NULL, NULL, 'https://iyouyangshuo.oss-cn-guangzhou.aliyuncs.com/%E9%98%B3%E6%9C%94%E5%A6%82%E6%84%8F%E5%B3%B0%E7%B4%A2%E9%81%93%E6%99%AF%E5%8C%BA%E5%B0%81%E9%9D%A2.png', 3, 110.00, 0, '高空缆车、玻璃栈道、云顶观光');
 
 -- ----------------------------
 -- Table structure for specialty
@@ -347,7 +438,7 @@ CREATE TABLE `specialty`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '图片url',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of specialty
@@ -368,15 +459,15 @@ CREATE TABLE `ticket`  (
   `label` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '标签',
   `sale` int(0) DEFAULT 0 COMMENT '销量',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ticket
 -- ----------------------------
-INSERT INTO `ticket` VALUES (1, 1, '1号的景区门票1', NULL, NULL, 0);
-INSERT INTO `ticket` VALUES (2, 1, '1号的景区门票2', NULL, NULL, 0);
-INSERT INTO `ticket` VALUES (3, 2, '2号的景区门票1', NULL, NULL, 0);
-INSERT INTO `ticket` VALUES (4, 1, 'fds', NULL, NULL, 0);
+INSERT INTO `ticket` VALUES (1, 1, '印象刘三姐老总统席A1区-19:30场', 828.00, '桂林山水', 0);
+INSERT INTO `ticket` VALUES (2, 1, '印象刘三姐新贵宾席B2区-19:30场', 268.00, '阳朔景点', 0);
+INSERT INTO `ticket` VALUES (4, 1, '印象刘三姐儿童票-19:30场', 118.00, '桂林山水', 0);
+INSERT INTO `ticket` VALUES (5, 2, '如意峰索道景区成人票', 208.00, '俯瞰桂林峰林美景', 0);
 
 -- ----------------------------
 -- Table structure for ticket_book
@@ -390,6 +481,9 @@ CREATE TABLE `ticket_book`  (
   `number` int(0) DEFAULT 1 COMMENT '门票数量',
   `total_price` decimal(10, 2) DEFAULT NULL COMMENT '总价格',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态',
+  `idcard` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '游客身份证',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '游客姓名',
+  `contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '联系电话',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
@@ -422,14 +516,13 @@ DROP EVENT IF EXISTS `update_hotel_score`;
 delimiter ;;
 CREATE DEFINER = `root`@`localhost` EVENT `update_hotel_score`
 ON SCHEDULE
-EVERY '1' HOUR STARTS '2025-04-08 15:41:01'
+EVERY '5' MINUTE STARTS '2025-04-08 15:41:01'
 DO BEGIN
   UPDATE `hotel`
   SET `score` = ROUND((
-    SELECT AVG(`rating`)
+    SELECT AVG(`score`)
     FROM `comment`
     WHERE `hotel_id` = `hotel`.`id`
-    AND `type` = '民宿'
   ), 1);
 END
 ;;
@@ -442,14 +535,13 @@ DROP EVENT IF EXISTS `update_restaurant_score`;
 delimiter ;;
 CREATE DEFINER = `root`@`localhost` EVENT `update_restaurant_score`
 ON SCHEDULE
-EVERY '1' HOUR STARTS '2025-04-08 15:25:36'
+EVERY '5' MINUTE STARTS '2025-04-08 15:25:36'
 DO BEGIN
   UPDATE `restaurant`
   SET `score` = ROUND((
-    SELECT AVG(`rating`)
+    SELECT AVG(`score`)
     FROM `comment`
     WHERE `restaurant_id` = `restaurant`.`id`
-    AND `review_type` = '餐饮'
   ), 1);
 END
 ;;
@@ -462,14 +554,13 @@ DROP EVENT IF EXISTS `update_scenic_score`;
 delimiter ;;
 CREATE DEFINER = `root`@`localhost` EVENT `update_scenic_score`
 ON SCHEDULE
-EVERY '1' HOUR STARTS '2025-04-08 15:24:37'
+EVERY '5' MINUTE STARTS '2025-04-08 15:24:37'
 DO BEGIN
   UPDATE `scenic`
   SET `score` = ROUND((
-    SELECT AVG(`rating`)
+    SELECT AVG(`score`)
     FROM `comment`
     WHERE `scenic_id` = `scenic`.`id`
-    AND `type` = '景区'
   ), 1);
 END
 ;;
