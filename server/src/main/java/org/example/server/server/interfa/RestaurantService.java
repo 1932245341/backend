@@ -13,6 +13,6 @@ public interface RestaurantService {
     void deleteById(int id);
     List<Restaurant> queryAllRestaurant();
     PageResult queryPage(PageQueryDTO pageQueryDTO);
-    List<Restaurant> queryByMarkerId(int markerId);
+    List<Restaurant> queryByMarkerId(long markerId);
     Restaurant queryById(int id);
 }

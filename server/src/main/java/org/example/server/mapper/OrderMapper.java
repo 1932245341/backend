@@ -18,4 +18,5 @@ public interface OrderMapper {
 
     @Select("select * from orders where order_no = #{orderNo}")
     Order selectByOrderNo(String orderNo);
+
 }

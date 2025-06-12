@@ -38,7 +38,7 @@ public interface HotelMapper {
      * @param markerId
      * @return
      */
-    List<Hotel> queryByMarkerId(int markerId);
+    List<Hotel> queryByMarkerId(long markerId);
 
 
     /**

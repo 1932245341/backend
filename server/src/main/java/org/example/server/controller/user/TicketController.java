@@ -5,13 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.common.result.Result;
 import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Ticket;
+import org.example.pojo.vo.TicketBookVO;
 import org.example.server.server.impl.DishServiceImpl;
 import org.example.server.server.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,6 +44,12 @@ public class TicketController {
     public Result<Ticket> queryById(Integer id) {
         Ticket ticket = ticketService.queryById(id);
         return Result.success(ticket);
+    }
+
+    @PostMapping("/ticketbook")
+    public Result book(@RequestBody TicketBookVO ticketBookVO) {
+        ticketService.insertTicketBook(ticketBookVO);
+        return Result.success();
     }
 
 }

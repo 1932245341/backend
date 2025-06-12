@@ -67,7 +67,14 @@ public class ParkingController {
          return Result.success();
      }
 
-
+    @DeleteMapping
+    public Result<String> deleteById(Integer id){
+        log.info("删除停车场信息：{}",id);
+        String key = "parking:list";
+        clearRedis(key);
+        parkingService.deleteParking(id);
+        return Result.success();
+    }
 
     /**
      * 清理redis缓存数据

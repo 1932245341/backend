@@ -6,7 +6,7 @@
         insert into dish
         (restaurant_id,name,price, image, description, status)
         values
-            (#{restaurant_id},#{name},  #{price}, #{image}, #{description}, #{status})
+            (#{restaurantId},#{name},  #{price}, #{image}, #{description}, #{status})
     </insert>
 
 

@@ -20,6 +20,7 @@
             <if test="payNo != null"> and pay_no like concat('%', #{payNo}, '%')</if>
             <if test="payTime != null"> and pay_time like concat('%', #{payTime}, '%')</if>
             <if test="status != null"> and status like concat('%', #{status}, '%')</if>
+            <if test="marketer_id != null"> and marketer_id = #{marketerId}</if>
         </where>
         order by id desc
     </select>
@@ -132,6 +133,9 @@
         <where>
             <if test="userId != null">
                 user_id = #{userId}
+            </if>
+            <if test="marketerId != null">
+                and marketer_id = #{marketerId}
             </if>
             <if test="status != null">
                 and status = #{status}

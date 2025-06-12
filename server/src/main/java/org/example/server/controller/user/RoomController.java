@@ -3,12 +3,11 @@ package org.example.server.controller.user;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.result.Result;
 import org.example.pojo.entity.Room;
+import org.example.pojo.vo.RoomBookVO;
 import org.example.server.server.impl.RoomServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +41,12 @@ public class RoomController {
     public Result<Room> getById(Integer id) {
         Room room = roomService.getById(id);
         return Result.success(room);
+    }
+
+    @PostMapping("/roombook")
+    public Result book(@RequestBody RoomBookVO roomBookVO) {
+        roomService.insertRoomBook(roomBookVO);
+        return Result.success(roomBookVO);
     }
 
 }

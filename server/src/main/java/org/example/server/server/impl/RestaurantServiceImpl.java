@@ -47,7 +47,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> queryByMarkerId(int markerId) {
+    public List<Restaurant> queryByMarkerId(long markerId) {
         return restaurantMapper.queryByMarkerId(markerId);
     }
 

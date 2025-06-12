@@ -1,6 +1,7 @@
 package org.example.server.controller.marketer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.context.BaseContext;
 import org.example.common.result.PageResult;
 import org.example.common.result.Result;
 import org.example.pojo.dto.PageQueryDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -51,12 +53,11 @@ public class RestaurantController {
     }
 
 
-     //管理员端的分页查询
-    @GetMapping("/page")
-    public Result<PageResult> page(PageQueryDTO pageQueryDTO) {
-        log.info("分页查询餐馆：{}", pageQueryDTO);
-        PageResult pageResult = restaurantService.queryPage(pageQueryDTO);
-        return Result.success(pageResult);
+     //商家查询自己的餐馆
+    @GetMapping("/list")
+    public Result<List> list() {
+        List<Restaurant> restaurantList= restaurantService.queryByMarkerId(BaseContext.getCurrentId());
+        return Result.success(restaurantList);
     }
 
     /**

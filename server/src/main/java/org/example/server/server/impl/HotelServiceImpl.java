@@ -52,7 +52,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> queryByMarkerId(int markerId) {
+    public List<Hotel> queryByMarkerId(long markerId) {
         return hotelMapper.queryByMarkerId(markerId);
     }
 

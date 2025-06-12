@@ -2,6 +2,7 @@ package org.example.server.server.interfa;
 
 import org.example.pojo.dto.AdminLoginDTO;
 import org.example.pojo.entity.Admin;
+import org.example.pojo.vo.dataVO;
 
 public interface AdminService {
     /**
@@ -11,5 +12,8 @@ public interface AdminService {
      * @return
      */
     Admin login(AdminLoginDTO adminLoginDTO);
+
+    dataVO getData();
+
 
 }

@@ -8,6 +8,7 @@ import org.example.common.result.PageResult;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Ticket;
+import org.example.pojo.vo.TicketBookVO;
 import org.example.server.mapper.DishMapper;
 import org.example.server.mapper.TicketMapper;
 import org.example.server.server.interfa.DishService;
@@ -55,6 +56,16 @@ public class TicketServiceImpl implements TicketService {
         long total = page.getTotal();
         List<Ticket> records = page.getResult();
         return new PageResult(total,records);
+    }
+
+    @Override
+    public void insertTicketBook(TicketBookVO ticketBookVO) {
+        ticketBookVO.setUserId(BaseContext.getCurrentId());
+        ticketMapper.insertTicketBook(ticketBookVO);
+    }
+    @Override
+    public List<TicketBookVO> selectTicketBooks() {
+        return ticketMapper.selectTicketBook();
     }
 
 

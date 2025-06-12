@@ -4,6 +4,7 @@ import org.example.common.constant.MessageConstant;
 import org.example.common.exception.PasswordErrorException;
 import org.example.pojo.entity.Admin;
 import org.example.pojo.dto.AdminLoginDTO;
+import org.example.pojo.vo.dataVO;
 import org.example.server.mapper.AdminMapper;
 import org.example.server.server.interfa.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,18 @@ public class AdminServiceImpl implements AdminService {
         //3、返回实体对象
         return admin;
     }
+
+
+    public dataVO getData() {
+        dataVO dataVO = new dataVO();
+        dataVO.setUserCount(adminMapper.getUserCount());
+        dataVO.setSpecialtyTotal(adminMapper.sumSpecialtyTotal());
+        dataVO.setScenicTotal(adminMapper.sumScenicTotal());
+        dataVO.setRestaurantTotal(adminMapper.sumRestaurantTotal());
+        dataVO.setHotelTotal(adminMapper.sumHotelTotal());
+        return dataVO;
+    }
+
+
 
 }

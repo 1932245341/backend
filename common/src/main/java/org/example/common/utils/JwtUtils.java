@@ -27,7 +27,6 @@ public class JwtUtils {
         Date exp = new Date(expMillis);
         //密钥实例
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
         String compact = Jwts.builder()
                 .signWith(key, algorithm) //设置签名使用的签名算法和签名使用的秘钥
                 //如果有私有声明，一点要先设置这个自己创建的私有的声明，这个是给builder的claims赋值，一旦卸载标准的声明赋值之后，就是覆盖了那些标准的声明的
@@ -36,8 +35,6 @@ public class JwtUtils {
                 .compact();//设置过期时间
         return compact;
     }
-
-
     /**
      * 解析jwt
      * @param token

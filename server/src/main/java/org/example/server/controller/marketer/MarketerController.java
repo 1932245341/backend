@@ -2,6 +2,7 @@ package org.example.server.controller.marketer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.constant.JwtClaimsConstant;
+import org.example.common.context.BaseContext;
 import org.example.common.properties.JwtProperties;
 import org.example.common.result.PageResult;
 import org.example.common.result.Result;
@@ -10,12 +11,17 @@ import org.example.pojo.dto.MarketerLoginDTO;
 
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Marketer;
+import org.example.pojo.entity.Order;
 import org.example.pojo.vo.MarketerLoginVO;
+import org.example.pojo.vo.dataVO;
 import org.example.server.server.interfa.MarketerService;
+import org.example.server.server.interfa.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -29,6 +35,8 @@ public class MarketerController {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @Autowired
+    private OrderService orderService;
 
     /**
      * 登录
@@ -92,5 +100,20 @@ public class MarketerController {
         log.info("删除商家：{}", id);
         marketerService.deleteMarketer(id);
         return Result.success();
+    }
+
+    @GetMapping("/data")
+    public Result<dataVO> getData() {
+        dataVO dataVO = marketerService.getData();
+        return Result.success(dataVO);
+    }
+
+    //商家全部订单
+    @GetMapping("/order/list")
+    public Result<List<Order>> getByMarketId() {
+        Order order = new Order();
+        order.setMarketerId(BaseContext.getCurrentId());
+        List<Order> list = orderService.getByUserId(order);
+        return Result.success(list);
     }
 }

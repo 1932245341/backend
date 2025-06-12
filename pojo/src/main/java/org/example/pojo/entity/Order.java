@@ -37,7 +37,7 @@ public class Order  {
 
     private Integer addressId;
 
-    private Integer marketerId;
+    private Long marketerId;
 
     private Integer specialtyId;
     private Integer hotelId;

@@ -8,6 +8,7 @@ import org.example.common.result.PageResult;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Room;
+import org.example.pojo.vo.RoomBookVO;
 import org.example.server.mapper.DishMapper;
 import org.example.server.mapper.RoomMapper;
 import org.example.server.server.interfa.DishService;
@@ -55,6 +56,17 @@ public class RoomServiceImpl implements RoomService {
         long total = page.getTotal();
         List<Room> records = page.getResult();
         return new PageResult(total,records);
+    }
+
+    @Override
+    public void insertRoomBook(RoomBookVO roomBookVO) {
+        roomBookVO.setUserId(BaseContext.getCurrentId());
+        roomMapper.insertRoomBook(roomBookVO);
+    }
+
+    @Override
+    public List<RoomBookVO> selectRoomBooks(Long marketerId) {
+        return roomMapper.selectRoomBooks(marketerId);
     }
 
 

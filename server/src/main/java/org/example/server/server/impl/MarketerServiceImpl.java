@@ -3,6 +3,7 @@ package org.example.server.server.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.example.common.constant.MessageConstant;
+import org.example.common.context.BaseContext;
 import org.example.common.exception.AccountNotFoundException;
 import org.example.common.exception.PasswordErrorException;
 
@@ -11,12 +12,14 @@ import org.example.pojo.dto.MarketerLoginDTO;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Marketer;
 import org.example.pojo.entity.Parking;
+import org.example.pojo.vo.dataVO;
 import org.example.server.mapper.MarketerMapper;
 import org.example.server.server.interfa.MarketerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -67,6 +70,10 @@ public class MarketerServiceImpl implements MarketerService {
         marketerMapper.update(marketer);
     }
 
+    @Override
+    public List<Marketer> qureyApplication() {
+        return marketerMapper.qureyApplication();
+    }
 
     /**
      * 管理员端分页查询商家
@@ -81,5 +88,10 @@ public class MarketerServiceImpl implements MarketerService {
         return new PageResult(total,records);
     }
 
-
+    public dataVO getData() {
+        dataVO dataVO = new dataVO();
+        dataVO.setMarketerrestaurantTotal(marketerMapper.sumRestaurantTotal(BaseContext.getCurrentId()));
+        dataVO.setMarketerhotelTotal(marketerMapper.sumHotelTotal(BaseContext.getCurrentId()));
+        return dataVO;
+    }
 }

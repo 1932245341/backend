@@ -7,12 +7,14 @@ import org.example.common.result.Result;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Room;
+import org.example.pojo.vo.RoomBookVO;
 import org.example.server.server.interfa.DishService;
 import org.example.server.server.interfa.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -24,6 +26,13 @@ public class RoomController {
     private RoomService roomService;
     @Autowired
     RedisTemplate redisTemplate;
+
+
+    @GetMapping("/list")
+    public Result<List<Room>> list(long hotel_id) {
+        List<Room> roomList = roomService.queryByHotelId(hotel_id);
+        return Result.success(roomList);
+    }
 
     @GetMapping("/page")
     public Result<PageResult> page(PageQueryDTO pageQueryDTO) {
@@ -66,5 +75,12 @@ public class RoomController {
     private void clearRedis(String keys) {
         Set<String> cacheKeys = redisTemplate.keys(keys);
         redisTemplate.delete(cacheKeys);
+    }
+
+    @GetMapping("/roombook")
+    public Result<List<RoomBookVO>> roomBook() {
+        log.info("查询本民宿的商家id：{}", BaseContext.getCurrentId());
+        List<RoomBookVO> roomBookList = roomService.selectRoomBooks(BaseContext.getCurrentId());
+        return Result.success(roomBookList);
     }
 }

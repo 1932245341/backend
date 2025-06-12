@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -22,6 +23,14 @@ public class DishController {
     private DishService dishService;
     @Autowired
     RedisTemplate redisTemplate;
+
+
+    @GetMapping("/list")
+    public Result<List<Dish>> list(long restaurant_id) {
+        List<Dish> dishList = dishService.queryByRestaurantId(restaurant_id);
+        return Result.success(dishList);
+    }
+
 
     @GetMapping("/page")
     public Result<PageResult> page(PageQueryDTO pageQueryDTO) {

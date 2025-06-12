@@ -1,30 +1,38 @@
 package org.example.server.controller.admin;
+import org.example.common.context.BaseContext;
+import org.example.common.result.PageResult;
 import org.example.common.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.properties.JwtProperties;
 import org.example.common.result.Result;
 import org.example.pojo.dto.AdminLoginDTO;
+import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Admin;
+import org.example.pojo.entity.Order;
 import org.example.pojo.vo.AdminLoginVO;
+import org.example.pojo.vo.dataVO;
 import org.example.server.server.interfa.AdminService;
+import org.example.server.server.interfa.HotelService;
+import org.example.server.server.interfa.OrderService;
+import org.example.server.server.interfa.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.example.common.constant.JwtClaimsConstant;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin/admin")
+@RequestMapping("admin/admin")
 @Slf4j
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -62,4 +70,24 @@ public class AdminController {
         return Result.success(adminLoginVO);
     }
 
+
+    @GetMapping("/data")
+    public Result<dataVO> getData() {
+        dataVO dataVO = adminService.getData();
+        return Result.success(dataVO);
+    }
+
+    @GetMapping("/order/list")
+    public Result<List<Order>> getByUserId() {
+        List<Order> list = orderService.getAllOrder();
+        return Result.success(list);
+    }
+
+    @GetMapping("/order/payed")
+    public Result<List<Order>> getByUserIdPayed() {
+        Order order = new Order();
+        order.setStatus("已支付");
+        List<Order> list = orderService.getByUserId(order);
+        return Result.success(list);
+    }
 }

@@ -7,12 +7,14 @@ import org.example.common.result.Result;
 import org.example.pojo.dto.PageQueryDTO;
 import org.example.pojo.entity.Dish;
 import org.example.pojo.entity.Ticket;
+import org.example.pojo.vo.TicketBookVO;
 import org.example.server.server.interfa.DishService;
 import org.example.server.server.interfa.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -32,6 +34,13 @@ public class TicketController {
         log.info("分页查询结果：{}", pageResult);
         return Result.success(pageResult);
     }
+
+    @GetMapping("/list")
+    public Result<List<Ticket>> list(long scenicId) {
+        List<Ticket> ticketList = ticketService.queryByScenicId(scenicId);
+        return Result.success(ticketList);
+    }
+
 
     @PostMapping("/add")
     public Result<String> add(@RequestBody Ticket ticket) {
@@ -68,4 +77,11 @@ public class TicketController {
         Set<String> cacheKeys = redisTemplate.keys(keys);
         redisTemplate.delete(cacheKeys);
     }
+
+    @GetMapping("/ticketbook")
+    public Result<List<TicketBookVO>> getTicketBooks() {
+        List<TicketBookVO> ticketBooks = ticketService.selectTicketBooks();
+        return Result.success(ticketBooks);
+    }
+
 }

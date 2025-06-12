@@ -4,6 +4,7 @@ import org.example.common.result.PageResult;
 import org.example.pojo.dto.PageQueryDTO;
 
 import org.example.pojo.entity.Room;
+import org.example.pojo.vo.RoomBookVO;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface RoomService {
     PageResult queryPage(PageQueryDTO pageQueryDTO);
 
     Room getById(Integer id);
+
+    void insertRoomBook(RoomBookVO roomBookVO);
+    List<RoomBookVO> selectRoomBooks(Long marketerId);
 }

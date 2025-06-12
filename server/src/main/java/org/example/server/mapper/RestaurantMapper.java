@@ -29,7 +29,7 @@ public interface RestaurantMapper {
      * @param markerId
      * @return
      */
-    List<Restaurant> queryByMarkerId(int markerId);
+    List<Restaurant> queryByMarkerId(long markerId);
 
 
     /**
